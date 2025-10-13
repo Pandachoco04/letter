@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Letter — Princess Nina</title>
+
+  <!-- romantic script font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --pink1:#fff0f6;
+      --pink2:#ffd6e7;
+      --deep:#ff4d88;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,var(--pink1),var(--pink2));
+      font-family:'Dancing Script',cursive;
+      color:#2a0a12;
+      overflow-x:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      position:relative;
+    }
+    /* soft shimmer */
+    @keyframes shimmer{
+      0%{background-position:0 0;}
+      100%{background-position:1000px 0;}
+    }
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 50%,rgba(255,255,255,0.15) 100%);
+      background-size:1000px 100%;
+      animation:shimmer 12s linear infinite;
+      pointer-events:none;
+    }
+
+    .sunflower{
+      width:160px;height:160px;border-radius:50%;
+      background:linear-gradient(135deg,#ffd166,#ffb703);
+      display:grid;place-items:center;
+      font-size:60px;cursor:pointer;
+      box-shadow:0 12px 30px rgba(255,181,1,0.2);
+      transition:transform .3s;
+      z-index:2;
+    }
+    .sunflower:active{transform:scale(.96);}
+    @keyframes spinBloom{
+      0%{transform:rotate(0deg) scale(1);}
+      60%{transform:rotate(360deg) scale(1.2);}
+      100%{transform:rotate(720deg) scale(1);}
+    }
+    .hidden{display:none;}
+    .fade-out{opacity:0;transition:opacity 1s ease;}
+    .letter{
+      max-width:900px;
+      padding:20px;
+      font-size:19px;
+      line-height:1.8;
+      white-space:pre-wrap;
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity 1s ease, transform 1s ease;
+      z-index:3;
+    }
+    .float{
+      position:fixed;
+      font-size:22px;
+      opacity:0.9;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+      z-index:1;
+    }
+    .ending{
+      font-size:22px;
+      color:var(--deep);
+      opacity:0;
+      transition:opacity 2s ease;
+      margin-top:16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="start">
+    <div class="sunflower" id="sunBtn">🌻</div>
+    <div id="prompt" style="margin-top:14px;font-size:22px;font-weight:700;">
+      Click the sunflower to open my message
+    </div>
+  </div>
+
+  <div class="letter" id="letterText"></div>
+  <div class="ending" id="ending">— forever your Choco 🖤</div>
+
+  <audio id="bgMusic" src="hindi.mp3" preload="auto"></audio>
+
+  <script>
+  const LETTER = `my buldak, my lovey, my baby, my bebi, my sayang,
+
+hey you yes, you, the sleepy head who always ends up getting mad at the world, but still somehow finds a way to make my whole world brighter. i miss you more than words can ever explain. i miss your voice, your rants, your tampo moments, your baby moods, your random “away modeee” energy, even the way you get jealous when i talk to someone else (which, btw, i secretly find cute... but shh, don’t get mad).
+
+i just want to say thank you for staying, for loving me from miles away, for being my reason to smile even when the distance gets heavy. every day, i wish i could teleport to Malaysia just to hand you your favorite chichirya vcut, cracklings, mang juan, pillows, and loaded and sit with you while you eat your sinigang, sushi, siomai, or maybe that bulalo cup noodles you love so much. i’d watch you eat (with your mouth closed, of course, kasi alam ko pet peeve mo ‘yon) and i’d listen to your laugh that sound that feels like home.
+
+i imagine you in your black clothes, with your pink things around you your favorite colors wrapping you up like the prettiest mix of comfort and chaos. i imagine you sipping mango smoothie or CINCAOOO SUSU while playing monopoly, valorant, or just cuddling with meeeee. and i swear, baby, if teleportation was real, i’d already be there beside you, making you laugh, feeding you taho and scramble, and stealing a kiss between each bite.
+
+i know we’re far, but you’ve become a part of my routine just like how you wake up, take your twice a week ligo, eat, play with meee, and sleep again. somehow, even if we’re apart, my day feels incomplete without you. it’s crazy how someone who’s miles away can still feel this close to my heart.
+
+meron ikaw mode e 1 sleepy head, my 2 naiinis sa mundo, my 3 babyyy, my 4 away mode, my 5 doing nails/playing guitar/playing games, and my 6 hyper ragebaiter. every version of you calm or chaotic is still the person i fell in love with. and i’ll keep falling, again and again, for the same girl who takes rice from the middle of the rice cooker.
+
+sometimes, i just sit and think about how lucky i am. out of everyone, i got you. my pink loving, coffee drinking, sinigang eating, night owl girl. my jealous but soft hearted baby who gets tampo easily but still chooses to stay. my little chaos wrapped in black shirts and warm smiles.
+
+bebe, i know it’s not easy. the distance, the waiting, the overthinking they can get tiring. but please know this: i’m here. i’m staying. no matter how long, no matter how far, no matter how many times we argue or get silent for a bit you’re still the one i want to come home to.
+
+you’re the warmth in my nights, the calm in my mess, and the comfort i look for when the world gets too loud. i love you more than i can ever say in one letter more than vcut and mang juan, more than sinigang and sushi, more than any game, any food, any drink.
+
+i love you for being my buldak, the fire that keeps my heart alive.
+i love you for being my lovey, the gentle reason i still believe in love.
+i love you for being my baby, the one who makes me want to be better every day.
+i love you for being my bebi, the soft voice that keeps me grounded.
+i love you for being my sayang, my everything.
+
+so until i can finally hold you, until the distance fades and i can finally say all this while looking into your brown eyes please take care of yourself. eat well, drink your CINCAOOO SUSU, don’t sleep too late even if you’re a night owl, and remember that i’m always thinking of you.
+
+i’m proud of you, i’m thankful for you, and i’ll keep loving you through every mood swing, every tampo, every laugh, every call, every distance.
+
+forever your
+choco 🖤`;
+
+  const sunBtn = document.getElementById('sunBtn');
+  const prompt = document.getElementById('prompt');
+  const letterText = document.getElementById('letterText');
+  const music = document.getElementById('bgMusic');
+  const ending = document.getElementById('ending');
+
+  function spawnFloat(){
+    const syms = ['❤','🌻','🌸','🌼','✨'];
+    const el = document.createElement('div');
+    el.className='float';
+    el.textContent=syms[Math.floor(Math.random()*syms.length)];
+    el.style.left=Math.random()*100+'%';
+    el.style.top='100%';
+    const size=16+Math.random()*22;
+    el.style.fontSize=size+'px';
+    document.body.appendChild(el);
+    const dx=(Math.random()-0.5)*200;
+    const anim=el.animate([{transform:`translate(${dx}px,0)`,opacity:1},
+                           {transform:`translate(${dx*0.3}px,-400px)`,opacity:0}],
+                           {duration:4000+Math.random()*2000,easing:'ease-out'});
+    anim.onfinish=()=>el.remove();
+  }
+
+  function typeLetter(txt, el, done){
+    el.textContent='';
+    let i=0;
+    function step(){
+      if(i<txt.length){
+        const span=document.createElement('span');
+        span.textContent=txt[i++];
+        span.style.opacity='0';
+        span.style.transition='opacity 0.4s';
+        el.appendChild(span);
+        setTimeout(()=>span.style.opacity='1',10);
+        setTimeout(step,85); // slow & emotional speed
+      }else if(done){done();}
+    }
+    step();
+  }
+
+  sunBtn.addEventListener('click',()=>{
+    sunBtn.style.animation='spinBloom 2s ease forwards';
+    prompt.classList.add('fade-out');
+    setTimeout(()=>prompt.style.display='none',1000);
+    music.currentTime=0; music.volume=0.5; music.play().catch(()=>{});
+    for(let i=0;i<10;i++) setTimeout(spawnFloat,i*200);
+    letterText.style.opacity='1'; letterText.style.transform='translateY(0)';
+    typeLetter(LETTER,letterText,()=>{
+      // after typing finishes
+      for(let i=0;i<12;i++) setTimeout(spawnFloat,i*300);
+      setTimeout(()=>ending.style.opacity='1',2500); // wait 2.5s then fade ending
+    });
+  });
+  </script>
+</body>
+</html>
