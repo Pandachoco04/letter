@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nailoong Mode — For Princess Nina</title>
+
+  <!-- Dancing Script for romantic feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+
+
+  <style>
+    :root{
+  --pink1:#fff0f6;
+  --pink2:#ffd6e7;
+  --accent:#ff77a9;
+  --deep:#ff4d88;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--pink1),var(--pink2));
+  font-family:'Allura',cursive;
+  color:#2a0a12;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  font-size:50px;
+  line-height:2.1;
+}
+
+/* shimmer effect */
+@keyframes shimmer{0%{background-position:0 0}100%{background-position:1000px 0}}
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;
+  background:linear-gradient(110deg,rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.12) 100%);
+  background-size:1000px 100%;
+  animation:shimmer 14s linear infinite;
+  pointer-events:none;
+}
+
+.center-card{
+  width:min(980px,96%);
+  background:linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,250,250,0.9));
+  border-radius:16px;
+  padding:28px;
+  box-shadow:0 18px 46px rgba(0,0,0,0.07);
+  text-align:center;
+  z-index:2;
+  position:relative;
+}
+
+.message{
+  margin-top:20px;
+  text-align:left;
+  max-height:62vh;
+  overflow:auto;
+  padding:20px;
+  border-radius:12px;
+  font-size:24px; /* bigger text */
+  line-height:2.2;
+  white-space:pre-wrap;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity 1s ease, transform 1s ease;
+  background:rgba(255,255,255,0.6);
+}
+.message.show{opacity:1;transform:translateY(0)}
+
+
+    .loading{
+      display:flex;flex-direction:column;align-items:center;gap:12px;
+    }
+    .sparkles{width:96px;height:96px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(135deg,#fff5f8,#ffeaf2);box-shadow:0 12px 28px rgba(255,77,136,0.08);font-size:34px}
+    .loading-text{font-size:20px;font-weight:700;color:var(--deep)}
+
+    .hidden{display:none}
+
+    .intro-line{font-size:20px;margin-top:8px;opacity:0.96;color:#4b2028}
+
+    .reveal-btn{
+      margin-top:18px;
+      padding:12px 18px;border-radius:999px;border:0;
+      background:linear-gradient(90deg,var(--accent),var(--deep));
+      color:white;font-weight:800;font-size:16px;cursor:pointer;
+      box-shadow:0 12px 30px rgba(255,77,136,0.18);
+      display:inline-flex;gap:10px;align-items:center;
+      position:relative;overflow:hidden;
+    }
+    .reveal-btn:active{transform:scale(.98)}
+
+    /* subtle sparkle around button */
+    .reveal-btn::before{
+      content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 10% 20%, rgba(255,255,255,0.6), rgba(255,255,255,0) 20%);
+      opacity:0.08;transition:opacity .4s;pointer-events:none;
+    }
+    .reveal-btn:hover::before{opacity:0.14;}
+
+    .message{
+      margin-top:20px; text-align:left; max-height:62vh; overflow:auto;
+      padding:20px;border-radius:12px; font-size:18px; line-height:1.8;
+      white-space:pre-wrap; opacity:0; transform:translateY(8px);
+      transition:opacity 1s ease, transform 1s ease; background:rgba(255,255,255,0.6);
+    }
+    .message.show{opacity:1;transform:translateY(0)}
+
+    /* floats */
+    .float{position:fixed;font-size:20px;opacity:0.9;pointer-events:none;z-index:1}
+
+    .ending{font-size:20px;color:var(--deep);opacity:0;margin-top:14px;transition:opacity 2s ease;text-align:right;padding-right:6px}
+
+    /* responsive tweaks */
+    @media (max-width:640px){
+      .message{font-size:19px}
+      .loading-text{font-size:18px}
+      .sparkles{width:76px;height:76px}
+    }
+  </style>
+</head>
+<body>
+  <div class="center-card" id="card">
+    <div id="loadingArea" class="loading">
+      <div class="sparkles">✨</div>
+      <div class="loading-text">loading love…</div>
+      <div class="intro-line">When you start feeling like you’re not enough, read this again.</div>
+    </div>
+
+    <div id="contentArea" class="hidden" role="main" aria-live="polite">
+      <div style="font-size:22px;font-weight:800;color:var(--deep)">When you start feeling like you’re not enough, read this again.</div>
+
+      <button id="revealBtn" class="reveal-btn" title="Tap to see what I see in you">
+        <span>💖 Tap to see what I see in you</span>
+      </button>
+
+      <div id="message" class="message" aria-hidden="true"></div>
+      <div id="ending" class="ending">You’re beautiful, always. — Choco 🖤</div>
+    </div>
+  </div>
+
+  <audio id="bg" src="ewan by apo hiking society (cover by kyle raphael).mp3" preload="auto" loop></audio>
+
+  <script>
+    // message content (exact as provided)
+    const MESSAGE = `love, i just want to say this kasi i’ve been thinking about it you don’t need to change anything about yourself. i fell in love with you not the version you think you have to become, but the version you already are. the one who eats chichirya kahit busog na, who drinks cincao susu and tang pineapple like it’s her comfort drink, who gets tampo easily but still comes back with that same sweetness that i love so much. 
+i know you always say you’re fat, but love, the truth is, i fell for you the way you are now. the one who loves sinigang, sushi, siomai, burger, and those cup noodles na seafood or bulalo flavor. i love how you enjoy every little thing you like that’s part of your charm. and yes, i know mas malaki ka sakin, but this time, you’re not the one who needs to change. ako naman ngayon ‘yung nagaadjust, ‘yung nagwowork hard para kahit papano, mamatch kita. kasi i want to stand beside you, proud and confident, just like how proud i am to love you. 
+you’re my black shirt girl with a heart that’s pink soft but strong. the jealous one, the maldita sometimes, the one who interacts with random girls and still gets mad when i do but i love that too, kasi it means you care. you’re the one who plays monopoly, chinese garter, luksong baka, or valorant with that brown eyed focus that i can never get tired of looking at. 
+and even your little things the way you get rice sa gitna ng rice cooker, your twice a week ligo schedule, how you baby me like im ur kid, your tampo moments, your taho and scramble cravings all of it, love, all of that is you. 
+you’re imperfect, but perfectly you. and that’s what i fell in love with.
+you always tell me you’re fat, but what i see is someone who’s full of life, full of personality, full of love. i don’t want a version of you that changed just to look “better” because to me, you’re already the best. 
+and maybe i’m small right now, but i’m working on it not because i want to “match” you physically, but because i want to deserve standing next to you, to make you proud too. 
+so don’t change, okay? keep being that girl who loves capuchino at midnight, who snacks on cereals when she can’t sleep, who laughs loud, gets jealous, nags at me when i talk to other girls, but still says “i love you” after all the tampuhan.
+i love you, love. exactly the way you are from your chichirya stained fingers to your brown eyes that always tell me when you’re mad or when you’re soft. i don’t want a different version of you. i just want you`;
+
+    const loadingArea = document.getElementById('loadingArea');
+    const contentArea = document.getElementById('contentArea');
+    const revealBtn = document.getElementById('revealBtn');
+    const messageEl = document.getElementById('message');
+    const bg = document.getElementById('bg');
+    const ending = document.getElementById('ending');
+
+    // spawn floats
+    function spawnFloat(){
+      const syms = ['❤','🌻','🌸','✨'];
+      const el = document.createElement('div');
+      el.className='float';
+      el.textContent = syms[Math.floor(Math.random()*syms.length)];
+      el.style.left = Math.random()*100 + '%';
+      el.style.top = window.innerHeight + 'px';
+      el.style.fontSize = (14 + Math.random()*26) + 'px';
+      document.body.appendChild(el);
+      const dx = (Math.random()-0.5)*200;
+      const anim = el.animate([{transform:`translate(${dx}px,0)`,opacity:1},{transform:`translate(${dx*0.3}px,-450px)`,opacity:0}],{duration:4000+Math.random()*2400,easing:'ease-out'});
+      anim.onfinish = ()=>el.remove();
+    }
+
+    // show loading then content
+    setTimeout(()=>{
+      loadingArea.classList.add('hidden');
+      contentArea.classList.remove('hidden');
+      // spawn a few floaters
+      for(let i=0;i<6;i++) setTimeout(spawnFloat,i*220);
+    }, 3200); // 3.2s loading
+
+    // type with fade function (slow & emotional)
+    function typeFade(text, container, onDone){
+      container.innerHTML = '';
+      let i = 0;
+      function step(){
+        if(i < text.length){
+          const ch = text[i++];
+          const span = document.createElement('span');
+          span.textContent = ch;
+          span.style.opacity = '0';
+          span.style.transition = 'opacity 0.6s linear';
+          container.appendChild(span);
+          // small delay to allow transition
+          setTimeout(()=>{ span.style.opacity = '1'; }, 10);
+          // pace: slower on periods and commas a bit
+          let delay = 70;
+          if(ch === '.' || ch === '\n') delay = 220;
+          else if(ch === ',') delay = 120;
+          setTimeout(step, delay);
+        } else {
+          if(onDone) onDone();
+        }
+      }
+      step();
+    }
+
+    // reveal handler
+    revealBtn.addEventListener('click', ()=>{
+      // play music (user gesture)
+      try{ bg.currentTime = 0; bg.volume = 0.45; bg.play().catch(()=>{}); }catch(e){}
+      // small sparkle around button
+      revealBtn.style.transform = 'scale(0.98)';
+      setTimeout(()=> revealBtn.style.transform = '', 220);
+      // reveal message area visually
+      messageEl.setAttribute('aria-hidden','false');
+      messageEl.classList.add('show');
+      // start typing
+      typeFade(MESSAGE, messageEl, ()=>{
+        // spawn celebratory floats
+        for(let i=0;i<10;i++) setTimeout(spawnFloat,i*200);
+        // show ending after 2.5s
+        setTimeout(()=> ending.style.opacity = '1', 2500);
+      });
+    });
+
+    // also spawn gentle background floats regularly for atmosphere
+    setInterval(spawnFloat, 1000);
+  </script>
+</body>
+</html>
