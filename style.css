@@ -1,0 +1,235 @@
+/* ---------- General Reset ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, #2b1055, #7597de);
+  transition: background 4s ease-in-out;
+}
+
+/* ---------- Sky Layers ---------- */
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #ffb6c1, #ffd1dc, #fce8f3);
+  transition: background 20s ease-in-out;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sun {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, 
+    #fff5cc 0%, 
+    #ffec85 25%, 
+    #ffb347 55%, 
+    #ff6a00 75%, 
+    rgba(255, 90, 0, 0.4) 100%);
+  box-shadow:
+    0 0 60px 25px rgba(255, 180, 0, 0.7),
+    0 0 120px 50px rgba(255, 120, 0, 0.6),
+    0 0 200px 100px rgba(255, 90, 0, 0.4),
+    inset 0 0 50px rgba(255, 255, 255, 0.2);
+  filter: blur(0.3px);
+  animation: sunPulse 3s ease-in-out infinite alternate, heatWave 5s ease-in-out infinite;
+  transition: bottom 20s linear, opacity 8s ease-in-out;
+  z-index: 1;
+}
+
+/* realistic breathing glow */
+@keyframes sunPulse {
+  0% {
+    box-shadow:
+      0 0 60px 25px rgba(255, 190, 0, 0.8),
+      0 0 130px 60px rgba(255, 150, 0, 0.6),
+      0 0 220px 120px rgba(255, 100, 0, 0.4);
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    box-shadow:
+      0 0 80px 35px rgba(255, 220, 70, 0.9),
+      0 0 160px 80px rgba(255, 180, 0, 0.7),
+      0 0 240px 150px rgba(255, 120, 0, 0.5);
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+/* subtle heat shimmer distortion */
+@keyframes heatWave {
+  0%, 100% {
+    filter: blur(0.3px) saturate(1);
+  }
+  50% {
+    filter: blur(1px) saturate(1.2);
+  }
+}
+
+
+
+/* ---------- Clouds ---------- */
+.clouds::before, .clouds::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  filter: blur(30px);
+  animation: moveClouds 60s linear infinite;
+}
+
+.clouds::after {
+  top: 50px;
+  left: 300px;
+  opacity: 0.8;
+  animation-delay: 10s;
+}
+
+@keyframes moveClouds {
+  from { transform: translateX(-500px); }
+  to { transform: translateX(100vw); }
+}
+
+/* ---------- Stars ---------- */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 4s ease-in;
+  z-index: 0;
+}
+
+/* ---------- Fireflies ---------- */
+#fireflies {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Each firefly will be added via JS */
+.firefly {
+  position: absolute;
+  background: radial-gradient(circle, #ffc6ff 0%, #ff77e9 40%, transparent 70%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: flicker 3s infinite ease-in-out;
+  filter: blur(2px);
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ---------- Petals ---------- */
+#petals {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.petal {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 30% 30%, #ff9ab5, #ff5fa3);
+  border-radius: 50% 50% 0 50%;
+  opacity: 0.8;
+  animation: fallPetal 10s linear infinite;
+}
+
+@keyframes fallPetal {
+  0% {
+    transform: translateY(-10%) rotate(0deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+/* ---------- Letter Card ---------- */
+.letter-card {
+  position: relative;
+  z-index: 5;
+  width: 60%;
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 30px rgba(255, 182, 193, 0.4);
+  text-align: left;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+/* --- Glow shimmer when a firefly passes --- */
+.glowPulse {
+  box-shadow: 0 0 30px rgba(255, 190, 255, 0.4),
+              0 0 60px rgba(255, 150, 240, 0.5),
+              0 0 100px rgba(255, 100, 200, 0.4);
+  transition: box-shadow 0.6s ease-out;
+}
+
+#tapToRead {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.25);
+  color: white;
+  font-size: 1.8em;
+  padding: 10px 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+#tapToRead:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+.hidden {
+  display: none;
+}
+
+/* ---------- Typing Text ---------- */
+#typedMessage {
+  font-size: 1.1em;
+  line-height: 1.7em;
+  white-space: pre-wrap;
+  color: #fffdfc;
+}
