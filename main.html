@@ -1,104 +1,208 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>For Princess Nina — Home</title>
+
   <style>
-    :root{--pink-1:#fff0f6;--pink-2:#ffd6e7;--accent:#ff77a9;--deep:#ff4d88}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:linear-gradient(135deg,var(--pink-1),var(--pink-2));font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#2a0a12}
-    .wrap{max-width:1100px;margin:32px auto;padding:18px} .card{background:linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,250,250,0.85));padding:20px;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,0.06)}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px} .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--deep));display:grid;place-items:center;color:white;font-weight:800}
-    h1{margin:0;font-size:clamp(20px,4vw,32px)} .subtitle{opacity:0.9;font-size:14px}
+    :root{
+      --pink-1:#fff0f6;
+      --pink-2:#ffd6e7;
+      --accent:#ff77a9;
+      --deep:#ff4d88;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(135deg,var(--pink-1),var(--pink-2));
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      color:#2a0a12;
+    }
+
+    .wrap{max-width:1100px;margin:32px auto;padding:18px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,250,250,0.85));
+      padding:20px;
+      border-radius:16px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.06)
+    }
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:64px;height:64px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--deep));
+      display:grid;place-items:center;
+      color:white;font-weight:800
+    }
+
+    h1{margin:0;font-size:clamp(20px,4vw,32px)}
+    .subtitle{opacity:0.9;font-size:14px}
+
     .hero{margin-top:18px;padding:28px;border-radius:18px;position:relative;overflow:hidden}
     .greeting{font-size:clamp(18px,3vw,28px);font-weight:700;color:var(--deep)}
-    .btn{padding:10px 14px;border-radius:12px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(255,77,136,0.14)}
-    .btn.secondary{background:transparent;color:var(--deep);border:2px solid rgba(255,77,136,0.12)}
-    .controls{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+
+    /* ===== BUTTON SYSTEM (IMPROVED) ===== */
+
+    .button-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .btn{
+      padding:14px 10px;
+      border-radius:14px;
+      border:0;
+      cursor:pointer;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:.3px;
+      background:linear-gradient(135deg,var(--accent),var(--deep));
+      color:white;
+      box-shadow:0 10px 26px rgba(255,77,136,0.25);
+      transition:all .25s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px) scale(1.03);
+      box-shadow:0 16px 36px rgba(255,77,136,0.35);
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--deep);
+      border:2px solid rgba(255,77,136,0.25);
+      box-shadow:none;
+    }
+
+    .btn.deep{
+      background:linear-gradient(135deg,#ff4d88,#ff1f6b);
+    }
+
+    .btn.glow{
+      background:linear-gradient(135deg,#ff9acb,#ff4d88);
+      box-shadow:0 0 18px rgba(255,120,180,.7);
+    }
+
+    .btn.valentines{
+      background:linear-gradient(135deg,#ffb6d5,#ff4d88,#ffb6d5);
+      box-shadow:0 0 22px rgba(255,150,200,.9);
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+      0%{transform:scale(1)}
+      50%{transform:scale(1.06)}
+      100%{transform:scale(1)}
+    }
+
+    /* ===== FLOATS ===== */
+
     .float-area{position:absolute;inset:0;pointer-events:none}
     .float{position:absolute;transform:translate(-50%,-50%);opacity:0.95;font-size:22px}
+
     footer{margin-top:20px;text-align:center;color:#5b2634}
-    .music-ind{padding:8px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,240,245,0.6));display:inline-block;margin-left:8px}
-    @media (max-width:720px){ .hero-grid{grid-template-columns:1fr} .logo{width:54px;height:54px} }
+
+    .music-ind{
+      padding:8px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,240,245,0.6));
+      display:inline-block;
+      margin-left:8px
+    }
+
+    @media (max-width:720px){
+      .logo{width:54px;height:54px}
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header class="card">
-      <div class="brand"><div class="logo">PN</div><div><h1>Hi Princess Nina 💗</h1><div class="subtitle">Made with all my heart — Choco</div></div></div>
+      <div class="brand">
+        <div class="logo">PN</div>
+        <div>
+          <h1>Hi Princess Nina 💗</h1>
+          <div class="subtitle">Made with all my heart — Choco</div>
+        </div>
+      </div>
       <div><small>Tip: Click the sunflower on the Letter page to open the message 🌻</small></div>
     </header>
 
     <main class="hero card">
       <div class="float-area" id="floatArea"></div>
+
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <div style="max-width:640px">
           <div class="greeting">Welcome back, Princess Nina 🌷</div>
-          <p style="margin-top:10px;opacity:0.95">This little space holds a letter, our photos, and a few surprises — click around and enjoy the music.</p>
-          <div class="controls">
-            <button class="btn" id="goLetter">💌 Go to Letter</button>
-            <button class="btn secondary" id="openGallery">📸 Open Gallery</button>
-            <div class="music-ind" id="musicStatus">Music ready</div>
-          </div>
+          <p style="margin-top:10px;opacity:0.95">
+            This little space holds a letter, our photos, and a few surprises — click around and enjoy the music.
+          </p>
         </div>
+
         <div style="text-align:center">
-          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><rect rx='18' width='100%' height='100%' fill='%23ffd6e7'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='%23ff4d88' font-family='Segoe UI, Roboto'>Princess</text></svg>" alt="decor" style="max-width:220px;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,0.06)">
+          <img src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'>
+          <rect rx='18' width='100%' height='100%' fill='%23ffd6e7'/>
+          <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle'
+          font-size='28' fill='%23ff4d88' font-family='Segoe UI, Roboto'>Princess</text>
+          </svg>"
+          style="max-width:220px;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,0.06)">
           <div style="margin-top:8px;opacity:0.9">for Princess Nina Gaspar</div>
         </div>
       </div>
-      <div style="text-align:center; margin-top:30px;">
-  <button class="btn" onclick="location.href='letter.html'">🌸 Go to Letter Page</button>
-  <button class="btn secondary" onclick="location.href='gallery.html'">🌻 Open Gallery</button>
-  <button class="btn" style="background:var(--deep);" onclick="location.href='nailoong_mode.html'"> Nailoong Button</button>
-  <button class="btn" onclick="location.href='sorry.html'">🌸🌸🌸🌸🌸 Go to this Page🌸🌸🌸🌸🌸</button>
-  <button class="btn" onclick="location.href='confort.html'">🌸🌸🌸🌸🌸 BABYYYYYYYYYY🌸🌸🌸🌸🌸</button>
-</div>
 
+      <!-- NEW CLEAN BUTTON LAYOUT -->
+      <div class="button-grid">
+        <button class="btn" onclick="location.href='letter.html'">💌 Letter</button>
+        <button class="btn secondary" onclick="location.href='gallery.html'">📸 Gallery</button>
+        <button class="btn deep" onclick="location.href='nailoong_mode.html'">😵 Nailoong</button>
+        <button class="btn" onclick="location.href='sorry.html'">🌸 Sorry</button>
+        <button class="btn glow" onclick="location.href='comfort.html'">💗 Comfort</button>
+        <button class="btn valentines" onclick="location.href='valentines.html'">💘 Valentine</button>
+      </div>
     </main>
-    <footer class="small-note card" style="margin-top:14px">Made with love by Choco • Floating flowers: sunflower, lily, LEGO flower 🌻🌸🌼</footer>
+
+    <footer class="card" style="margin-top:14px">
+      Made with love by Choco • Floating flowers: sunflower, lily, LEGO flower 🌻🌸🌼
+    </footer>
   </div>
 
   <audio id="mainAudio" src="bea.mp3" loop preload="auto"></audio>
 
   <script>
-    // floats
     const floatArea = document.getElementById('floatArea');
     function spawnFloat(){
-      const el = document.createElement('div'); el.className='float'; const symbols=['❤','🌻','🌸','🌼']; el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
-      const size = 12 + Math.random()*28; el.style.fontSize = size + 'px'; el.style.left = Math.random()*100 + '%'; el.style.top = 100 + Math.random()*40 + '%'; floatArea.appendChild(el);
-      const dx = (Math.random()-0.5)*160; const anim = el.animate([{transform:`translate(${dx}px,0) translateY(0) rotate(0deg)`,opacity:1},{transform:`translate(${dx*0.2}px,-360px) rotate(${Math.random()*360}deg)`,opacity:0}],{duration:3600+Math.random()*2600,easing:'ease-out'}); anim.onfinish=()=>el.remove();
+      const el = document.createElement('div');
+      el.className='float';
+      const symbols=['❤','🌻','🌸','🌼'];
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      const size = 12 + Math.random()*28;
+      el.style.fontSize = size + 'px';
+      el.style.left = Math.random()*100 + '%';
+      el.style.top = 100 + Math.random()*40 + '%';
+      floatArea.appendChild(el);
+
+      const dx = (Math.random()-0.5)*160;
+      const anim = el.animate([
+        {transform:`translate(${dx}px,0)`,opacity:1},
+        {transform:`translate(${dx*0.2}px,-360px)`,opacity:0}
+      ],{duration:3600+Math.random()*2600,easing:'ease-out'});
+      anim.onfinish=()=>el.remove();
     }
     setInterval(spawnFloat,700);
 
-    document.getElementById('goLetter').addEventListener('click', ()=> location.href='letter.html');
-    document.getElementById('openGallery').addEventListener('click', ()=> location.href='gallery.html');
-
-    // autoplay if flagged by gate (user gesture)
     const audio = document.getElementById('mainAudio');
-    const musicStatus = document.getElementById('musicStatus');
-    function tryPlayFromGate(){
-      try{
-        if(localStorage.getItem('pn_autoplay') === '1'){
-          localStorage.removeItem('pn_autoplay');
-          audio.volume = 0.0;
-          audio.play().then(()=>{
-            // fade in to 0.5
-            let vol = 0.0;
-            const intv = setInterval(()=>{ vol += 0.05; audio.volume = vol; if(vol >= 0.5){ clearInterval(intv); musicStatus.textContent='Playing'; } }, 150);
-          }).catch(()=>{
-            musicStatus.textContent = 'Play blocked — tap anywhere to play';
-            const onFirst = ()=>{ audio.play().then(()=>audio.volume=0.5).catch(()=>{}); document.body.removeEventListener('click', onFirst); musicStatus.textContent='Playing'; };
-            document.body.addEventListener('click', onFirst);
-          });
-        } else {
-          musicStatus.textContent = 'Tap to play';
-          // allow manual play on first tap
-          const onFirst = ()=>{ audio.play().then(()=>audio.volume=0.5).catch(()=>{}); document.body.removeEventListener('click', onFirst); musicStatus.textContent='Playing'; };
-          document.body.addEventListener('click', onFirst);
-        }
-      }catch(e){ console.log('play err', e); }
-    }
-    window.addEventListener('load', tryPlayFromGate);
+    window.addEventListener('click', ()=>{
+      audio.volume = 0.5;
+      audio.play().catch(()=>{});
+    }, {once:true});
   </script>
 </body>
 </html>
