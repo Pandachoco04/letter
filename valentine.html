@@ -24,17 +24,28 @@ body{
   color:white;
 }
 
-/* BACKGROUND TEXT */
-.capy{
-  position:fixed;
-  inset:0;
-  display:grid;
-  place-items:center;
-  font-size:14vw;
-  font-weight:900;
-  opacity:.05;
-  letter-spacing:1rem;
-  pointer-events:none;
+/* 🌸 LILIES */
+.lily{
+  position:absolute;
+  bottom:-80px;
+  width:60px;
+  height:120px;
+  background:linear-gradient(#ffb3dc,#ff77c8);
+  border-radius:50% 50% 40% 40%;
+  filter:blur(.5px) drop-shadow(0 0 15px pink);
+  animation:sway 6s ease-in-out infinite;
+  opacity:.9;
+}
+
+.lily:nth-child(1){left:5%}
+.lily:nth-child(2){left:20%; animation-delay:1s}
+.lily:nth-child(3){left:45%; animation-delay:2s}
+.lily:nth-child(4){left:70%; animation-delay:1.5s}
+.lily:nth-child(5){left:90%; animation-delay:.5s}
+
+@keyframes sway{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg)}
 }
 
 /* CARD */
@@ -51,13 +62,13 @@ body{
   text-align:center;
 }
 
-/* MESSAGE (HIDDEN AT FIRST) */
+/* MESSAGE (HIDDEN INITIALLY) */
 .message{
   display:none;
   max-height:50vh;
   overflow:auto;
   font-size:20px;
-  line-height:1.8;
+  line-height:1.9;
   margin-top:20px;
   text-align:left;
   padding-right:6px;
@@ -116,20 +127,33 @@ button{
 
 <body>
 
-<div class="capy">CAPYBARA</div>
+<!-- 🌸 LILIES BACKGROUND -->
+<div class="lily"></div>
+<div class="lily"></div>
+<div class="lily"></div>
+<div class="lily"></div>
+<div class="lily"></div>
 
 <div class="card">
   <h1>Will you be my Valentine? 💗</h1>
 
   <div class="message" id="msg">
 happy valentines, my love 🤍  
-i’ve been thinking a lot about how lucky i am to have you in my life. loving you has changed me in ways i didn’t expect, in the best way possible. you make my world feel warmer, calmer, and more meaningful just by being in it.
 
-i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy.
+i don’t even know where to begin, because no words will ever fully explain how much you mean to me. all i know is that loving you has become one of the most beautiful and meaningful parts of my life. you came into my world quietly, but somehow changed everything so deeply. you make ordinary days feel special, and even the hard days feel easier just because you’re there.
 
-thank you for loving me the way you do, for accepting me with my flaws, my moods, and my imperfections. thank you for making me feel cared for, heard, and valued.
+every time i think about you, i’m reminded of how lucky i am. lucky to be loved by someone as kind, patient, and genuine as you. lucky to share laughs, dreams, late-night talks, and even silence with you. you make me feel safe in ways i never knew i needed. you make me feel seen, heard, and understood, even when i struggle to understand myself.
 
-on this valentines day, i just want you to know that my love for you is real, constant, and sincere. i choose you today and every day after this. i love you so much 🤍
+i know we’re not perfect. we have our flaws, our misunderstandings, our moments of doubt and frustration. but what matters to me most is that you stay. that you try. that you choose us even when things aren’t easy. that kind of love means everything to me. i notice your effort, your sacrifices, and your care more than you probably realize.
+
+thank you for loving me even when i’m difficult. thank you for being patient with my moods, my fears, and my imperfections. thank you for believing in me, encouraging me, and standing by my side. you inspire me to grow, to be better, and to love more gently and honestly.
+
+being with you feels like home. your voice calms me. your presence comforts me. your smile has the power to change my entire day. every little thing about you holds a special place in my heart, and i wouldn’t trade that for anything.
+
+on this valentines day, i just want you to know that my love for you is real, deep, and unwavering. i don’t just choose you today — i choose you tomorrow, next week, next year, and every day after that. no matter what life throws at us, i want to face it with you, hand in hand.
+
+thank you for being you. thank you for being mine.  
+i love you more than words could ever fully express 🤍
   </div>
 
   <div class="buttons" id="buttons">
@@ -156,10 +180,9 @@ function spawnHeart(){
 }
 setInterval(spawnHeart,600);
 
-/* AUTO SCROLL FUNCTION */
-let scrollInterval;
+/* AUTO SCROLL */
 function startScroll(){
-  scrollInterval = setInterval(()=>{
+  setInterval(()=>{
     msg.scrollTop += 0.4;
   },30);
 }
@@ -167,7 +190,7 @@ function startScroll(){
 /* YES CLICK */
 yesBtn.onclick = () => {
   msg.style.display = "block";
-  buttons.style.display = "none"; // optional but cute
+  buttons.style.display = "none";
   startScroll();
 };
 
