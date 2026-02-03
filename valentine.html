@@ -61,23 +61,57 @@ body{
   text-align:left;
 }
 
-/* BUTTONS */
-.buttons{
-  margin-top:24px;
-  display:flex;
-  gap:18px;
-  justify-content:center;
-}
+const music = document.getElementById("music");
+document.body.addEventListener("click",()=>{
+  music.volume=.5;
+  music.play().catch(()=>{});
+},{once:true});
 
-button{
-  padding:14px 26px;
-  border:0;
-  border-radius:999px;
-  font-size:18px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.3s;
+/* AUTO SCROLL */
+const msg = document.getElementById("msg");
+setInterval(()=>{
+  msg.scrollTop += .3;
+},30);
+
+/* HEART SPAWN */
+function spawnHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="💗";
+  h.style.left=Math.random()*100+"%";
+  h.style.bottom="0px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
 }
+setInterval(spawnHeart,500);
+
+const yesBtn = document.getElementById("yes");
+const noBtn  = document.getElementById("no");
+
+/* YES follows cursor */
+document.addEventListener("mousemove",(e)=>{
+  const x = e.clientX;
+  const y = e.clientY;
+  yesBtn.style.position = "fixed";
+  yesBtn.style.left = (x - 40) + "px";
+  yesBtn.style.top  = (y - 20) + "px";
+});
+
+/* YES click */
+yesBtn.onclick=()=>{
+  alert("YAYYY 😭💖 I LOVE YOUUU");
+};
+
+/* NO makes YES bigger */
+let yesScale = 1;
+noBtn.onclick=()=>{
+  yesScale += 0.3;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  if(yesScale > 3){
+    alert("you have no choice now 😌💖");
+  }
+};
 
 #yes{
   background:linear-gradient(135deg,#ff9ad5,#ff3d7f);
