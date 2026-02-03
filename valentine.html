@@ -11,7 +11,6 @@
   --deep:#ff3d7f;
   --bg1:#1a0010;
   --bg2:#3a0030;
-  --glass:rgba(255,255,255,.15);
 }
 
 *{box-sizing:border-box}
@@ -25,7 +24,7 @@ body{
   color:white;
 }
 
-/* CAPYBARA TEXT BACKGROUND */
+/* CAPYBARA BACKGROUND */
 .capy{
   position:fixed;
   inset:0;
@@ -36,25 +35,6 @@ body{
   opacity:.05;
   letter-spacing:1rem;
   pointer-events:none;
-}
-
-/* LILIES */
-.lily{
-  position:absolute;
-  bottom:-80px;
-  width:60px;height:120px;
-  background:linear-gradient(#ff9ad5,#b066ff);
-  border-radius:50% 50% 40% 40%;
-  filter:blur(.5px) drop-shadow(0 0 12px pink);
-  animation:sway 6s ease-in-out infinite;
-}
-.lily:nth-child(2){left:10%}
-.lily:nth-child(3){left:85%}
-.lily:nth-child(4){left:60%}
-
-@keyframes sway{
-  0%,100%{transform:rotate(-2deg)}
-  50%{transform:rotate(2deg)}
 }
 
 /* GLASS CARD */
@@ -79,14 +59,6 @@ body{
   line-height:1.8;
   margin-top:14px;
   text-align:left;
-  padding-right:6px;
-}
-
-/* AUTO SCROLL */
-.message::-webkit-scrollbar{width:6px}
-.message::-webkit-scrollbar-thumb{
-  background:linear-gradient(pink,hotpink);
-  border-radius:10px;
 }
 
 /* BUTTONS */
@@ -111,23 +83,13 @@ button{
   background:linear-gradient(135deg,#ff9ad5,#ff3d7f);
   color:white;
   box-shadow:0 0 18px hotpink;
+  position:fixed; /* needed for following */
+  z-index:10;
 }
 
 #no{
   background:#222;
   color:white;
-}
-
-/* NO EVIL MODE */
-.no-full{
-  position:fixed;
-  inset:0;
-  background:black;
-  color:red;
-  display:grid;
-  place-items:center;
-  font-size:10vw;
-  z-index:999;
 }
 
 /* HEARTS */
@@ -149,24 +111,18 @@ button{
 
 <div class="capy">CAPYBARA</div>
 
-<div class="lily"></div>
-<div class="lily"></div>
-<div class="lily"></div>
-<div class="lily"></div>
-
 <div class="card">
   <h1>Will you be my Valentine? 💗</h1>
 
   <div class="message" id="msg">
-    <!-- PASTE YOUR LONG MESSAGE HERE -->
-    happy valentines, my love 🤍
+happy valentines, my love 🤍  
 i’ve been thinking a lot about how lucky i am to have you in my life. loving you has changed me in ways i didn’t expect, in the best way possible. you make my world feel warmer, calmer, and more meaningful just by being in it. even on days when i’m tired, confused, or not at my best, you still feel like home to me.
 
-i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy. your patience, your understanding, and your love mean more to me than you’ll ever know. i see all the things you do, the effort you give, and the sacrifices you make, and i never take any of it for granted.
+i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy. your patience, your understanding, and your love mean more to me than you’ll ever know.
 
-thank you for loving me the way you do, for accepting me with my flaws, my moods, and my imperfections. thank you for making me feel cared for, heard, and valued. you inspire me to be better, to grow, and to love more gently and deeply. every little thing about you—your voice, your smile, the way you think—has a special place in my heart.
+thank you for loving me the way you do, for accepting me with my flaws, my moods, and my imperfections. thank you for making me feel cared for, heard, and valued.
 
-on this valentines day, i just want you to know that my love for you is real, constant, and sincere. i choose you today and every day after this. no matter what comes our way, i want to face it with you. i love you so much, more than words can ever fully explain 🤍
+on this valentines day, i just want you to know that my love for you is real, constant, and sincere. i choose you today and every day after this. i love you so much 🤍
   </div>
 
   <div class="buttons">
@@ -175,22 +131,33 @@ on this valentines day, i just want you to know that my love for you is real, co
   </div>
 </div>
 
-<audio id="music" src="Through The Years - Kenny Rogers Piano Cover.mp3" loop></audio>
-
 <script>
-const music = document.getElementById("music");
-document.body.addEventListener("click",()=>{
-  music.volume=.5;
-  music.play().catch(()=>{});
-},{once:true});
+const yesBtn = document.getElementById("yes");
+const noBtn  = document.getElementById("no");
 
-/* AUTO SCROLL */
-const msg = document.getElementById("msg");
-setInterval(()=>{
-  msg.scrollTop += .3;
-},30);
+/* YES follows cursor */
+document.addEventListener("mousemove",(e)=>{
+  yesBtn.style.left = (e.clientX - 40) + "px";
+  yesBtn.style.top  = (e.clientY - 20) + "px";
+});
 
-/* HEART SPAWN */
+/* NO makes YES bigger */
+let yesScale = 1;
+noBtn.onclick = () => {
+  yesScale += 0.3;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  if(yesScale > 3){
+    alert("you literally can't say no anymore 😌💖");
+  }
+};
+
+/* YES click */
+yesBtn.onclick = () => {
+  alert("YAYYY 😭💖 I LOVE YOUUU");
+};
+
+/* hearts */
 function spawnHeart(){
   const h=document.createElement("div");
   h.className="heart";
@@ -201,24 +168,7 @@ function spawnHeart(){
   setTimeout(()=>h.remove(),4000);
 }
 setInterval(spawnHeart,500);
-
-/* YES */
-document.getElementById("yes").onclick=()=>{
-  alert("YAYYY 😭💖 I LOVE YOUUU");
-};
-
-/* NO EVIL */
-let noScale=1;
-document.getElementById("no").onclick=()=>{
-  noScale+=.6;
-  document.getElementById("no").style.transform=`scale(${noScale})`;
-  if(noScale>6){
-    const evil=document.createElement("div");
-    evil.className="no-full";
-    evil.textContent="NO 😈";
-    document.body.appendChild(evil);
-  }
-};
 </script>
+
 </body>
 </html>
