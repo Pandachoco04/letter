@@ -1,32 +1,224 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day</title>
-    <style>
-        body {
-            background-color: #ffcccb; /* Pink background */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .logo {
-            width: 200px;
-            height: auto;
-        }
-        h1 {
-            color: #ff0066; /* Complementary red color */
-        }
-        p {
-            font-size: 1.5em;
-            color: #660066; /* Darker purple for contrast */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+
+<style>
+:root{
+  --pink:#ff77a9;
+  --deep:#ff3d7f;
+  --bg1:#1a0010;
+  --bg2:#3a0030;
+  --glass:rgba(255,255,255,.15);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  overflow:hidden;
+  font-family: 'Segoe UI', system-ui;
+  background:radial-gradient(circle at top,var(--bg2),var(--bg1));
+  color:white;
+}
+
+/* CAPYBARA TEXT BACKGROUND */
+.capy{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-size:14vw;
+  font-weight:900;
+  opacity:.05;
+  letter-spacing:1rem;
+  pointer-events:none;
+}
+
+/* LILIES */
+.lily{
+  position:absolute;
+  bottom:-80px;
+  width:60px;height:120px;
+  background:linear-gradient(#ff9ad5,#b066ff);
+  border-radius:50% 50% 40% 40%;
+  filter:blur(.5px) drop-shadow(0 0 12px pink);
+  animation:sway 6s ease-in-out infinite;
+}
+.lily:nth-child(2){left:10%}
+.lily:nth-child(3){left:85%}
+.lily:nth-child(4){left:60%}
+
+@keyframes sway{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg)}
+}
+
+/* GLASS CARD */
+.card{
+  position:relative;
+  z-index:2;
+  width:min(720px,92%);
+  margin:8vh auto;
+  padding:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
+  backdrop-filter:blur(14px);
+  border-radius:22px;
+  box-shadow:0 0 40px rgba(255,100,180,.4);
+  text-align:center;
+}
+
+/* MESSAGE */
+.message{
+  max-height:50vh;
+  overflow:auto;
+  font-size:20px;
+  line-height:1.8;
+  margin-top:14px;
+  text-align:left;
+  padding-right:6px;
+}
+
+/* AUTO SCROLL */
+.message::-webkit-scrollbar{width:6px}
+.message::-webkit-scrollbar-thumb{
+  background:linear-gradient(pink,hotpink);
+  border-radius:10px;
+}
+
+/* BUTTONS */
+.buttons{
+  margin-top:24px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+}
+
+button{
+  padding:14px 26px;
+  border:0;
+  border-radius:999px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+
+#yes{
+  background:linear-gradient(135deg,#ff9ad5,#ff3d7f);
+  color:white;
+  box-shadow:0 0 18px hotpink;
+}
+
+#no{
+  background:#222;
+  color:white;
+}
+
+/* NO EVIL MODE */
+.no-full{
+  position:fixed;
+  inset:0;
+  background:black;
+  color:red;
+  display:grid;
+  place-items:center;
+  font-size:10vw;
+  z-index:999;
+}
+
+/* HEARTS */
+.heart{
+  position:fixed;
+  font-size:20px;
+  pointer-events:none;
+  animation:float 4s linear forwards;
+}
+
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-300px);opacity:0}
+}
+</style>
 </head>
+
 <body>
-    <img src="path_to_capibara_logo.png" alt="Capibara Logo" class="logo">
-    <h1>Happy Valentine's Day!</h1>
-    <p>Spread love and happiness!</p>
+
+<div class="capy">CAPYBARA</div>
+
+<div class="lily"></div>
+<div class="lily"></div>
+<div class="lily"></div>
+<div class="lily"></div>
+
+<div class="card">
+  <h1>Will you be my Valentine? 💗</h1>
+
+  <div class="message" id="msg">
+    <!-- PASTE YOUR LONG MESSAGE HERE -->
+    happy valentines, my love 🤍
+i’ve been thinking a lot about how lucky i am to have you in my life. loving you has changed me in ways i didn’t expect, in the best way possible. you make my world feel warmer, calmer, and more meaningful just by being in it. even on days when i’m tired, confused, or not at my best, you still feel like home to me.
+
+i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy. your patience, your understanding, and your love mean more to me than you’ll ever know. i see all the things you do, the effort you give, and the sacrifices you make, and i never take any of it for granted.
+
+thank you for loving me the way you do, for accepting me with my flaws, my moods, and my imperfections. thank you for making me feel cared for, heard, and valued. you inspire me to be better, to grow, and to love more gently and deeply. every little thing about you—your voice, your smile, the way you think—has a special place in my heart.
+
+on this valentines day, i just want you to know that my love for you is real, constant, and sincere. i choose you today and every day after this. no matter what comes our way, i want to face it with you. i love you so much, more than words can ever fully explain 🤍
+  </div>
+
+  <div class="buttons">
+    <button id="yes">YES 💖</button>
+    <button id="no">NO 😭</button>
+  </div>
+</div>
+
+<audio id="music" src="Through The Years - Kenny Rogers Piano Cover.mp3" loop></audio>
+
+<script>
+const music = document.getElementById("music");
+document.body.addEventListener("click",()=>{
+  music.volume=.5;
+  music.play().catch(()=>{});
+},{once:true});
+
+/* AUTO SCROLL */
+const msg = document.getElementById("msg");
+setInterval(()=>{
+  msg.scrollTop += .3;
+},30);
+
+/* HEART SPAWN */
+function spawnHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="💗";
+  h.style.left=Math.random()*100+"%";
+  h.style.bottom="0px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+}
+setInterval(spawnHeart,500);
+
+/* YES */
+document.getElementById("yes").onclick=()=>{
+  alert("YAYYY 😭💖 I LOVE YOUUU");
+};
+
+/* NO EVIL */
+let noScale=1;
+document.getElementById("no").onclick=()=>{
+  noScale+=.6;
+  document.getElementById("no").style.transform=`scale(${noScale})`;
+  if(noScale>6){
+    const evil=document.createElement("div");
+    evil.className="no-full";
+    evil.textContent="NO 😈";
+    document.body.appendChild(evil);
+  }
+};
+</script>
 </body>
 </html>
