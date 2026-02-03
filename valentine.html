@@ -19,12 +19,12 @@ body{
   margin:0;
   min-height:100vh;
   overflow:hidden;
-  font-family: 'Segoe UI', system-ui;
+  font-family:'Segoe UI',system-ui;
   background:radial-gradient(circle at top,var(--bg2),var(--bg1));
   color:white;
 }
 
-/* CAPYBARA BACKGROUND */
+/* BACKGROUND TEXT */
 .capy{
   position:fixed;
   inset:0;
@@ -37,7 +37,7 @@ body{
   pointer-events:none;
 }
 
-/* GLASS CARD */
+/* CARD */
 .card{
   position:relative;
   z-index:2;
@@ -51,74 +51,47 @@ body{
   text-align:center;
 }
 
-/* MESSAGE */
+/* MESSAGE (HIDDEN AT FIRST) */
 .message{
+  display:none;
   max-height:50vh;
   overflow:auto;
   font-size:20px;
   line-height:1.8;
-  margin-top:14px;
+  margin-top:20px;
   text-align:left;
+  padding-right:6px;
 }
 
-const music = document.getElementById("music");
-document.body.addEventListener("click",()=>{
-  music.volume=.5;
-  music.play().catch(()=>{});
-},{once:true});
-
-/* AUTO SCROLL */
-const msg = document.getElementById("msg");
-setInterval(()=>{
-  msg.scrollTop += .3;
-},30);
-
-/* HEART SPAWN */
-function spawnHeart(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.textContent="💗";
-  h.style.left=Math.random()*100+"%";
-  h.style.bottom="0px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),4000);
+/* SCROLLBAR */
+.message::-webkit-scrollbar{width:6px}
+.message::-webkit-scrollbar-thumb{
+  background:linear-gradient(pink,hotpink);
+  border-radius:10px;
 }
-setInterval(spawnHeart,500);
 
-const yesBtn = document.getElementById("yes");
-const noBtn  = document.getElementById("no");
+/* BUTTONS */
+.buttons{
+  margin-top:24px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+}
 
-/* YES follows cursor */
-document.addEventListener("mousemove",(e)=>{
-  const x = e.clientX;
-  const y = e.clientY;
-  yesBtn.style.position = "fixed";
-  yesBtn.style.left = (x - 40) + "px";
-  yesBtn.style.top  = (y - 20) + "px";
-});
-
-/* YES click */
-yesBtn.onclick=()=>{
-  alert("YAYYY 😭💖 I LOVE YOUUU");
-};
-
-/* NO makes YES bigger */
-let yesScale = 1;
-noBtn.onclick=()=>{
-  yesScale += 0.3;
-  yesBtn.style.transform = `scale(${yesScale})`;
-
-  if(yesScale > 3){
-    alert("you have no choice now 😌💖");
-  }
-};
+button{
+  padding:14px 26px;
+  border:0;
+  border-radius:999px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
 
 #yes{
   background:linear-gradient(135deg,#ff9ad5,#ff3d7f);
   color:white;
   box-shadow:0 0 18px hotpink;
-  position:fixed; /* needed for following */
-  z-index:10;
 }
 
 #no{
@@ -150,16 +123,16 @@ noBtn.onclick=()=>{
 
   <div class="message" id="msg">
 happy valentines, my love 🤍  
-i’ve been thinking a lot about how lucky i am to have you in my life. loving you has changed me in ways i didn’t expect, in the best way possible. you make my world feel warmer, calmer, and more meaningful just by being in it. even on days when i’m tired, confused, or not at my best, you still feel like home to me.
+i’ve been thinking a lot about how lucky i am to have you in my life. loving you has changed me in ways i didn’t expect, in the best way possible. you make my world feel warmer, calmer, and more meaningful just by being in it.
 
-i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy. your patience, your understanding, and your love mean more to me than you’ll ever know.
+i know we’re not perfect and we have moments where things feel heavy or hard, but i appreciate you so much for staying, for trying, and for choosing us even when it’s not easy.
 
 thank you for loving me the way you do, for accepting me with my flaws, my moods, and my imperfections. thank you for making me feel cared for, heard, and valued.
 
 on this valentines day, i just want you to know that my love for you is real, constant, and sincere. i choose you today and every day after this. i love you so much 🤍
   </div>
 
-  <div class="buttons">
+  <div class="buttons" id="buttons">
     <button id="yes">YES 💖</button>
     <button id="no">NO 😭</button>
   </div>
@@ -167,31 +140,11 @@ on this valentines day, i just want you to know that my love for you is real, co
 
 <script>
 const yesBtn = document.getElementById("yes");
-const noBtn  = document.getElementById("no");
+const noBtn = document.getElementById("no");
+const msg = document.getElementById("msg");
+const buttons = document.getElementById("buttons");
 
-/* YES follows cursor */
-document.addEventListener("mousemove",(e)=>{
-  yesBtn.style.left = (e.clientX - 40) + "px";
-  yesBtn.style.top  = (e.clientY - 20) + "px";
-});
-
-/* NO makes YES bigger */
-let yesScale = 1;
-noBtn.onclick = () => {
-  yesScale += 0.3;
-  yesBtn.style.transform = `scale(${yesScale})`;
-
-  if(yesScale > 3){
-    alert("you literally can't say no anymore 😌💖");
-  }
-};
-
-/* YES click */
-yesBtn.onclick = () => {
-  alert("YAYYY 😭💖 I LOVE YOUUU");
-};
-
-/* hearts */
+/* HEARTS */
 function spawnHeart(){
   const h=document.createElement("div");
   h.className="heart";
@@ -201,7 +154,29 @@ function spawnHeart(){
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),4000);
 }
-setInterval(spawnHeart,500);
+setInterval(spawnHeart,600);
+
+/* AUTO SCROLL FUNCTION */
+let scrollInterval;
+function startScroll(){
+  scrollInterval = setInterval(()=>{
+    msg.scrollTop += 0.4;
+  },30);
+}
+
+/* YES CLICK */
+yesBtn.onclick = () => {
+  msg.style.display = "block";
+  buttons.style.display = "none"; // optional but cute
+  startScroll();
+};
+
+/* NO MAKES YES BIGGER */
+let yesScale = 1;
+noBtn.onclick = () => {
+  yesScale += 0.3;
+  yesBtn.style.transform = `scale(${yesScale})`;
+};
 </script>
 
 </body>
